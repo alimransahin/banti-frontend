@@ -2,165 +2,192 @@ import Link from "next/link";
 import config from "@/config";
 
 const footerLinks = [
-    { href: "/notices", label: "» নোটিশ" },
-    { href: "/contact", label: "» যোগাযোগ" },
-    { href: "/academic", label: "» শিক্ষা সংক্রান্ত" },
-    { href: "#", label: "» EMIS" },
-    { href: "#", label: "» শিক্ষা ও তথ্যপ্রযুক্তি" },
-    { href: "#", label: "» JSC/SSC RESULT" },
+    { href: "/notices", label: "নোটিশ" },
+    { href: "/contact", label: "যোগাযোগ" },
+    { href: "/academic", label: "শিক্ষা সংক্রান্ত" },
+    { href: "#", label: "EMIS" },
+    { href: "#", label: "শিক্ষা ও তথ্যপ্রযুক্তি" },
+    { href: "#", label: "JSC/SSC RESULT" },
 ];
 
 export default function Footer() {
     return (
-        <footer
-            style={{
-                backgroundColor: "#228B22",
-                color: "white",
-                padding: "30px 15px",
-                marginTop: "40px",
-                fontSize: "12px",
-            }}
-        >
-            <div
-                style={{
-                    maxWidth: "1200px",
-                    margin: "0 auto",
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-                    gap: "30px",
-                    marginBottom: "30px",
-                }}
-            >
-                {/* About School */}
+        <footer className="mt-8 bg-primary-dark text-white">
+
+            {/* ================= MAIN FOOTER ================= */}
+            <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-5 py-10 sm:grid-cols-2 lg:grid-cols-3 lg:px-6">
+
+                {/* ================= ABOUT SCHOOL ================= */}
                 <div>
+
                     {/* Logo */}
-                    <div
-                        style={{
-                            width: "60px",
-                            height: "70px",
-                            background:
-                                "linear-gradient(135deg, #FFC107 0%, #FFB300 100%)",
-                            clipPath:
-                                "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            fontWeight: "bold",
-                            color: "#005A9C",
-                            fontSize: "14px",
-                            marginBottom: "15px",
-                        }}
-                    >
-                        DEMO
+                    <div className="mb-4 flex items-center gap-3">
+
+                        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border-2 border-accent bg-accent text-sm font-bold text-primary-dark shadow-sm">
+                            DEMO
+                        </div>
+
+                        <div className="min-w-0">
+                            <h3 className="text-base font-bold text-white">
+                                {config.schoolNameBN}
+                            </h3>
+
+                            <p className="mt-0.5 text-[10px] text-white/60">
+                                {config.schoolNameEN}
+                            </p>
+                        </div>
+
                     </div>
 
-                    <p
-                        style={{
-                            fontSize: "12px",
-                            lineHeight: "1.6",
-                            marginBottom: "15px",
-                            color: "rgba(255,255,255,0.9)",
-                        }}
-                    >
-                        আমাদের প্রাতিষ্ঠানিক লক্ষ্য শিক্ষার্থীদের সর্বোচ্চ মানের শিক্ষা
-                        প্রদান করা।
+                    <p className="mb-5 max-w-sm text-xs leading-7 text-white/75">
+                        আমাদের প্রাতিষ্ঠানিক লক্ষ্য শিক্ষার্থীদের সর্বোচ্চ মানের
+                        শিক্ষা প্রদান করা এবং তাদের জ্ঞান, দক্ষতা ও নৈতিক
+                        মূল্যবোধের বিকাশে সহায়তা করা।
                     </p>
 
                     {/* Social Links */}
-                    <div style={{ display: "flex", gap: "15px" }}>
-                        <a href="#" style={socialStyle}>
+                    <div className="flex items-center gap-2">
+
+                        <a
+                            href="#"
+                            aria-label="Facebook"
+                            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sm font-bold text-white transition hover:border-accent hover:bg-accent hover:text-primary-dark"
+                        >
                             f
                         </a>
-                        <a href="#" style={socialStyle}>
+
+                        <a
+                            href="#"
+                            aria-label="X"
+                            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sm font-bold text-white transition hover:border-accent hover:bg-accent hover:text-primary-dark"
+                        >
                             𝕏
                         </a>
-                        <a href="#" style={socialStyle}>
+
+                        <a
+                            href="#"
+                            aria-label="YouTube"
+                            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sm text-white transition hover:border-accent hover:bg-accent hover:text-primary-dark"
+                        >
                             ▶
                         </a>
-                        <a href="#" style={socialStyle}>
-                            ⚙
-                        </a>
+
                     </div>
+
                 </div>
 
-                {/* Important Links */}
-                <div>
-                    <h3 style={headingStyle}>গুরুত্বপূর্ণ লিংক</h3>
 
-                    <ul
-                        style={{
-                            margin: 0,
-                            padding: 0,
-                            listStyle: "none",
-                        }}
-                    >
+                {/* ================= IMPORTANT LINKS ================= */}
+                <div>
+
+                    <div className="mb-5 flex items-center gap-3">
+                        <div className="h-7 w-1 rounded-full bg-accent" />
+
+                        <h3 className="text-sm font-bold text-white">
+                            গুরুত্বপূর্ণ লিংক
+                        </h3>
+                    </div>
+
+                    <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-1">
+
                         {footerLinks.map((link) => (
-                            <li key={link.label} style={{ marginBottom: "6px" }}>
-                                <Link href={link.href} style={linkStyle}>
-                                    {link.label}
+                            <li key={link.label}>
+
+                                <Link
+                                    href={link.href}
+                                    className="group flex items-center gap-2 text-xs text-white/70 transition hover:text-accent"
+                                >
+                                    <span className="text-accent transition-transform group-hover:translate-x-1">
+                                        →
+                                    </span>
+
+                                    <span>
+                                        {link.label}
+                                    </span>
                                 </Link>
+
                             </li>
                         ))}
+
                     </ul>
+
                 </div>
 
-                {/* Contact */}
+
+                {/* ================= CONTACT ================= */}
                 <div>
-                    <h3 style={headingStyle}>যোগাযোগ</h3>
 
-                    <p style={contactStyle}>📍 {config.address}</p>
+                    <div className="mb-5 flex items-center gap-3">
+                        <div className="h-7 w-1 rounded-full bg-accent" />
 
-                    <p style={contactStyle}>📞 {config.mobileNo}</p>
+                        <h3 className="text-sm font-bold text-white">
+                            যোগাযোগ
+                        </h3>
+                    </div>
 
-                    <p style={contactStyle}>✉️ {config.email}</p>
+                    <div className="space-y-3">
 
-                    <p style={contactStyle}>🌐 {config.website}</p>
+                        {/* Address */}
+                        <div className="flex gap-3">
+                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/5 text-sm">
+                                📍
+                            </span>
+
+                            <p className="m-0 text-xs leading-6 text-white/70">
+                                {config.address}
+                            </p>
+                        </div>
+
+                        {/* Mobile */}
+                        <div className="flex gap-3">
+                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/5 text-sm">
+                                📞
+                            </span>
+
+                            <p className="m-0 text-xs leading-6 text-white/70">
+                                {config.mobileNo}
+                            </p>
+                        </div>
+
+                        {/* Email */}
+                        <div className="flex gap-3">
+                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/5 text-sm">
+                                ✉
+                            </span>
+
+                            <p className="m-0 break-all text-xs leading-6 text-white/70">
+                                {config.email}
+                            </p>
+                        </div>
+
+                    </div>
+
                 </div>
+
             </div>
 
-            {/* Copyright */}
-            <div
-                style={{
-                    borderTop: "1px solid rgba(255,255,255,0.2)",
-                    paddingTop: "15px",
-                    textAlign: "center",
-                    fontSize: "11px",
-                    color: "rgba(255,255,255,0.8)",
-                }}
-            >
-                <p style={{ margin: "0 0 5px 0" }}>
-                    Copyright @ 2026, {config.schoolNameEN}. All Rights Reserved.
-                </p>
 
-                <p style={{ margin: 0 }}>
-                    Developed By: Md. Al Imran
-                </p>
+            {/* ================= COPYRIGHT ================= */}
+            <div className="border-t border-white/10">
+
+                <div className="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-4 text-center text-[11px] text-white/50 sm:flex-row sm:items-center sm:justify-between lg:px-6">
+
+                    <p className="m-0">
+                        © 2026 {config.schoolNameEN}. সর্বস্বত্ব সংরক্ষিত।
+                    </p>
+
+                    <p className="m-0">
+                        Developed By:{" "}
+                        <span className="font-semibold text-white/70">
+                            Md. Al Imran
+                        </span>
+                    </p>
+
+                </div>
+
             </div>
+
         </footer>
     );
 }
 
-const headingStyle = {
-    fontSize: "14px",
-    fontWeight: "bold",
-    marginBottom: "12px",
-    fontFamily: '"Noto Sans Bengali", serif',
-};
-
-const linkStyle = {
-    color: "rgba(255,255,255,0.9)",
-    textDecoration: "none",
-    fontSize: "11px",
-};
-
-const contactStyle = {
-    margin: "0 0 8px 0",
-    color: "rgba(255,255,255,0.9)",
-    fontSize: "11px",
-};
-
-const socialStyle = {
-    color: "white",
-    fontSize: "16px",
-    textDecoration: "none",
-};

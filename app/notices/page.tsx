@@ -1,7 +1,5 @@
 'use client'
 
-import { Navigation } from '@/components/navigation'
-import { Footer } from '@/components/footer'
 import { getActiveNotices } from '@/lib/data-store'
 import { useEffect, useState } from 'react'
 import { AlertCircle, AlertTriangle, Info } from 'lucide-react'
@@ -49,7 +47,6 @@ export default function Notices() {
 
   return (
     <main className="min-h-screen flex flex-col bg-white">
-      <Navigation />
 
       {/* Header */}
       <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12 px-4">
@@ -71,11 +68,10 @@ export default function Notices() {
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition ${
-                      selectedCategory === category
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition ${selectedCategory === category
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}
                   >
                     {category.charAt(0).toUpperCase() + category.slice(1)}
                   </button>
@@ -141,7 +137,6 @@ export default function Notices() {
         </div>
       </section>
 
-      <Footer />
     </main>
   )
 }

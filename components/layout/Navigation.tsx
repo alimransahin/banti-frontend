@@ -21,96 +21,160 @@ export default function Navigation() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const isActive = (href: string) => {
-        if (href === "/") return pathname === "/";
+        if (href === "/") {
+            return pathname === "/";
+        }
+
         return pathname.startsWith(href);
     };
 
+    const closeMobileMenu = () => {
+        setMobileMenuOpen(false);
+    };
+
     return (
-        <nav className="bg-[#228B22] border-b-3 border-[#FFC107]">
+        <nav className="w-full bg-secondary border-b-[3px] border-accent shadow-sm">
 
-            {/* ================= DESKTOP ================= */}
+            {/* ================= DESKTOP / TABLET ================= */}
             <div className="hidden md:block">
-                <div className="max-w-[1200px] mx-auto flex items-center justify-center gap-4 flex-wrap py-2">
-                    {navItems.map((item) => (
-                        <Link
-                            key={item.href}
-                            href={item.href}
-                            className={`px-2 py-1 text-[13px] font-bold whitespace-nowrap no-underline ${isActive(item.href)
-                                ? "text-[#FFC107]"
-                                : "text-white"
-                                }`}
-                        >
-                            {item.label}
-                        </Link>
-                    ))}
+                <div className="mx-auto max-w-7xl">
+                    <div className="flex flex-wrap items-center justify-center gap-x-1 gap-y-1 py-2">
 
-                    <Link
-                        href="/admin"
-                        className={`px-2 py-1 text-[13px] font-bold whitespace-nowrap no-underline ${pathname.startsWith("/admin")
-                            ? "text-[#FFC107]"
-                            : "text-white"
-                            }`}
-                    >
-                        লগইন
-                    </Link>
-                </div>
-            </div>
+                        {navItems.map((item) => {
+                            const active = isActive(item.href);
 
-            {/* ================= MOBILE ================= */}
-            <div className="block md:hidden">
+                            return (
+                                <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    className={[
+                                        "relative px-2.5 py-2 lg:px-3",
+                                        "whitespace-nowrap text-[13px] font-bold lg:text-[14px]",
+                                        "no-underline transition-colors duration-200",
 
-                {/* Menu Button */}
-                <button
-                    type="button"
-                    onClick={() => setMobileMenuOpen((prev) => !prev)}
-                    className="w-full px-4 py-3 text-left text-white font-bold text-[15px] bg-[#228B22] border-0"
-                >
-                    {mobileMenuOpen ? "✕ বন্ধ করুন" : "☰ মেনু"}
-                </button>
+                                        active
+                                            ? "text-accent"
+                                            : "text-white hover:text-accent",
+                                    ].join(" ")}
+                                >
+                                    {item.label}
 
-                {/* Menu */}
-                {mobileMenuOpen && (
-                    <div className="bg-[#1a6b1a]">
-
-                        {navItems.map((item) => (
-                            <Link
-                                key={item.href}
-                                href={item.href}
-                                onClick={() => setMobileMenuOpen(false)}
-                                className={`
-                  block w-full px-5 py-3.5
-                  text-[14px] font-bold no-underline
-                  border-l-4
-                  ${isActive(item.href)
-                                        ? "text-[#FFC107] border-[#FFC107]"
-                                        : "text-white border-transparent"
-                                    }
-                `}
-                            >
-                                {item.icon} {item.label}
-                            </Link>
-                        ))}
+                                    {active && (
+                                        <span className="absolute bottom-0 left-2 right-2 h-[2px] bg-accent" />
+                                    )}
+                                </Link>
+                            );
+                        })}
 
                         {/* Login */}
                         <Link
                             href="/admin"
-                            onClick={() => setMobileMenuOpen(false)}
-                            className={`
-                block w-full px-5 py-3.5
-                text-[14px] font-bold no-underline
-                border-l-4
-                bg-[rgba(255,193,7,0.1)]
-                ${pathname.startsWith("/admin")
-                                    ? "text-[#FFC107] border-[#FFC107]"
-                                    : "text-white border-transparent"
-                                }
-              `}
+                            className={[
+                                "ml-1 rounded px-3 py-2",
+                                "whitespace-nowrap text-[13px] font-bold lg:text-[14px]",
+                                "no-underline transition-all duration-200",
+
+                                pathname.startsWith("/admin")
+                                    ? "bg-accent text-primary-dark"
+                                    : "text-white hover:bg-secondary-dark",
+                            ].join(" ")}
                         >
                             🔐 লগইন
                         </Link>
 
                     </div>
+                </div>
+            </div>
+
+            {/* ================= MOBILE ================= */}
+            <div className="md:hidden">
+
+                {/* Mobile Menu Header */}
+                <div className="flex items-center justify-between px-4 py-2.5">
+
+                    <span className="text-[15px] font-bold text-white">
+                        মেনু
+                    </span>
+
+                    <button
+                        type="button"
+                        aria-label="Toggle navigation menu"
+                        aria-expanded={mobileMenuOpen}
+                        onClick={() =>
+                            setMobileMenuOpen(!mobileMenuOpen)
+                        }
+                        className="
+                            flex h-9 w-10 items-center justify-center
+                            rounded border border-white/20
+                            bg-secondary-dark
+                            text-xl text-white
+                            transition
+                            hover:bg-primary-dark
+                            active:scale-95
+                        "
+                    >
+                        {mobileMenuOpen ? "✕" : "☰"}
+                    </button>
+
+                </div>
+
+                {/* Mobile Menu */}
+                {mobileMenuOpen && (
+                    <div className="border-t border-white/10 bg-secondary-dark">
+
+                        {navItems.map((item) => {
+                            const active = isActive(item.href);
+
+                            return (
+                                <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    onClick={closeMobileMenu}
+                                    className={[
+                                        "flex w-full items-center gap-3",
+                                        "border-l-4 px-5 py-3",
+                                        "text-[14px] font-bold no-underline",
+                                        "transition-all duration-200",
+
+                                        active
+                                            ? "border-accent bg-primary-dark text-accent"
+                                            : "border-transparent text-white hover:bg-primary-dark hover:text-accent",
+                                    ].join(" ")}
+                                >
+                                    <span className="w-6 text-center">
+                                        {item.icon}
+                                    </span>
+
+                                    <span>{item.label}</span>
+                                </Link>
+                            );
+                        })}
+
+                        {/* Login */}
+                        <Link
+                            href="/admin"
+                            onClick={closeMobileMenu}
+                            className={[
+                                "flex w-full items-center gap-3",
+                                "border-l-4 border-t px-5 py-3",
+                                "text-[14px] font-bold no-underline",
+                                "transition-all duration-200",
+
+                                pathname.startsWith("/admin")
+                                    ? "border-accent bg-primary-dark text-accent"
+                                    : "border-transparent bg-secondary-dark text-white hover:text-accent",
+                            ].join(" ")}
+                        >
+                            <span className="w-6 text-center">
+                                🔐
+                            </span>
+
+                            <span>লগইন</span>
+                        </Link>
+
+                    </div>
                 )}
+
             </div>
 
         </nav>

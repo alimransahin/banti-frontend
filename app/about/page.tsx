@@ -1,3 +1,4 @@
+import config from "@/config";
 
 export default function About() {
   return (
@@ -7,7 +8,7 @@ export default function About() {
       <section className="text-white py-16 px-4" style={{ background: 'linear-gradient(to right, #0F4C81, #1a5c9e)' }}>
         <div className="container-max">
           <h1 className="text-4xl md:text-5xl font-bold text-balance mb-4">আমাদের পরিচিতি</h1>
-          <p className="text-lg" style={{ color: 'rgba(255,255,255,0.9)' }}>চকগোপাল উচ্চ বিদ্যালয় সম্পর্কে আরও জানুন</p>
+          <p className="text-lg" style={{ color: 'rgba(255,255,255,0.9)' }}>{config.schoolNameBN} সম্পর্কে আরও জানুন</p>
         </div>
       </section>
 

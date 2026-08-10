@@ -1,7 +1,6 @@
 'use client'
 
-import { Navigation } from '@/components/navigation'
-import { Footer } from '@/components/footer'
+
 import { Mail, Phone, MapPin, Clock } from 'lucide-react'
 import { useState } from 'react'
 
@@ -31,7 +30,6 @@ export default function Contact() {
 
   return (
     <main className="min-h-screen flex flex-col bg-white">
-      <Navigation />
 
       {/* Header */}
       <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12 px-4">
@@ -167,7 +165,6 @@ export default function Contact() {
         </div>
       </section>
 
-      <Footer />
     </main>
   )
 }

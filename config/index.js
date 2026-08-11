@@ -6,6 +6,7 @@ const config = {
   mobileNo: process.env.NEXT_PUBLIC_MOBILE_NO || "",
   email: process.env.NEXT_PUBLIC_EMAIL || "",
   principalName: process.env.NEXT_PUBLIC_PRINCIPAL_NAME || "",
+  chairmanName: process.env.NEXT_PUBLIC_CHAIRMAN_NAME || "",
   address: process.env.NEXT_PUBLIC_ADDRESS || "",
 };
 

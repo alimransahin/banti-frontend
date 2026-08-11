@@ -43,6 +43,8 @@
 
   --animate-marquee: marquee 25s linear infinite;
 
+  --font-bangla: var(--font-bangla);
+
   @keyframes marquee {
     from {
       transform: translateX(0);

@@ -1,7 +1,7 @@
 "use client";
+import schoolContent from "@/data/schoolContent.json";
 
 import { useState } from "react";
-import schoolContent from "@/app/data/schoolContent";
 import config from "@/config";
 
 type Person = {
@@ -16,7 +16,7 @@ export default function ChairmanPrincipal() {
 
     const chairman: Person = {
         title: schoolContent[1].title,
-        name: "মোঃ ইদ্রিস আলি মন্ডল",
+        name: config.chairmanName,
         image:
             "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=400&fit=crop",
         content: schoolContent[1].content,

@@ -33,13 +33,7 @@ export default function Header() {
                             </h1>
 
                             <p
-                                className="
-                                    m-0 mt-1
-                                    text-[11px] font-bold leading-tight
-                                    text-secondary
-                                    sm:text-[12px]
-                                "
-                            >
+                                className=" m-0 mt-1 text-[12px] font-bold leading-tight text-secondary sm:text-[20px]">
                                 {config.schoolNameEN}
                             </p>
 

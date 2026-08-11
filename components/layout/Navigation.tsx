@@ -12,7 +12,6 @@ const navItems = [
     { href: "/notices", label: "নোটিশ", icon: "📢" },
     { href: "/academic", label: "একাডেমিক", icon: "📚" },
     { href: "/gallery", label: "গ্যালারি ও কর্নার", icon: "🖼️" },
-    { href: "/recruitment", label: "নিয়োগ বিজ্ঞপ্তি", icon: "💼" },
     { href: "/contact", label: "যোগাযোগ", icon: "✉️" },
 ];
 

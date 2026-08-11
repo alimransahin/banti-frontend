@@ -23,8 +23,12 @@ export default function Footer() {
                     {/* Logo */}
                     <div className="mb-4 flex items-center gap-3">
 
-                        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border-2 border-accent bg-accent text-sm font-bold text-primary-dark shadow-sm">
-                            DEMO
+                        <div className="flex h-16 w-16 shrink-0 items-center justify-center sm:h-20 sm:w-20">
+                            <img
+                                src="/assets/logo.png"
+                                alt={`${config.schoolNameBN} Logo`}
+                                className="h-full w-full object-contain"
+                            />
                         </div>
 
                         <div className="min-w-0">

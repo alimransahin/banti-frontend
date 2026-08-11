@@ -1,6 +1,7 @@
 "use client";
 
-import schoolContent from "@/app/data/schoolContent";
+import schoolContent from "@/data/schoolContent.json";
+
 import config from "@/config";
 import Link from "next/link";
 import { useState } from "react";

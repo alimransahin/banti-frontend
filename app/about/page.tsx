@@ -1,94 +1,325 @@
 import config from "@/config";
+import about from "@/data/about.json";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "সম্পর্কে",
+};
+
+const icons: Record<string, string> = {
+  book: "📚",
+  teacher: "👨‍🏫",
+  check: "✓",
+  idea: "💡",
+  shield: "🛡️",
+  heart: "❤",
+  users: "👥",
+};
 
 export default function About() {
-  return (
-    <main className="min-h-screen flex flex-col bg-background">
+  return (<main>
 
-      {/* Header */}
-      <section className="text-white py-16 px-4" style={{ background: 'linear-gradient(to right, #0F4C81, #1a5c9e)' }}>
-        <div className="container-max">
-          <h1 className="text-4xl md:text-5xl font-bold text-balance mb-4">আমাদের পরিচিতি</h1>
-          <p className="text-lg" style={{ color: 'rgba(255,255,255,0.9)' }}>{config.schoolNameBN} সম্পর্কে আরও জানুন</p>
+    {/* =====================================================
+            HERO
+        ===================================================== */}
+    <section className="relative overflow-hidden bg-primary mb-2 rounded">
+
+      <div className="absolute inset-0 opacity-[0.06]">
+        <div className="absolute right-0 top-0 h-80 w-80 rounded-full bg-white" />
+        <div className="absolute -bottom-32 -left-20 h-96 w-96 rounded-full bg-white" />
+      </div>
+
+      <div className="container-max relative px-4 py-14 sm:py-16 md:py-20">
+
+        <div className="max-w-3xl">
+
+          <div className="mb-5 flex items-center gap-3">
+            <span className="h-px w-10 bg-secondary" />
+
+            <span className="text-sm font-semibold tracking-wide text-white/80">
+              {about.hero.badge}
+            </span>
+          </div>
+
+          <h1 className="mb-5 text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
+            {about.hero.title}
+          </h1>
+
+          <p className="max-w-2xl text-base leading-8 text-white/80 md:text-lg">
+            {config.schoolNameBN} — জ্ঞান, নৈতিকতা ও
+            মানবিক মূল্যবোধে শিক্ষার্থীদের গড়ে তোলার প্রত্যয়ে।
+          </p>
+
         </div>
-      </section>
 
-      {/* Main Content */}
-      <section className="section-spacing">
-        <div className="container-max">
-          {/* School Overview */}
-          <div className="mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#1E293B' }}>আমাদের ইতিহাস</h2>
-            <div className="space-y-6">
-              <p className="leading-relaxed text-lg" style={{ color: '#475569' }}>
-                চকগোপাল উচ্চ বিদ্যালয় ১৯৮৫ সালে প্রতিষ্ঠিত হয় বৈচিত্র্যময় পটভূমির শিক্ষার্থীদের মানসম্পন্ন শিক্ষা প্রদানের লক্ষ্যে। গত ৩৫+ বছরে আমরা একাডেমিক উৎকর্ষতা এবং সামগ্রিক শিক্ষার্থী উন্নয়নের জন্য একটি সুখ্যাতি তৈরি করেছি।
-              </p>
-              <p className="leading-relaxed text-lg" style={{ color: '#475569' }}>
-                আমাদের প্রতিষ্ঠান শুধুমাত্র একাডেমিকভাবে মেধাবী শিক্ষার্থী নয়, বরং এমন দায়িত্বশীল নাগরিক গড়ে তুলতে প্রতিশ্রুতিবদ্ধ যারা সমাজে ইতিবাচক অবদান রাখে। আমরা শিক্ষার শক্তিতে বিশ্বাস করি যা জীবন পরিবর্তন করে এবং উন্নত ভবিষ্যৎ সৃষ্টি করে।
-              </p>
-              <p className="text-paragraph leading-relaxed text-lg">
-                অভিজ্ঞ শিক্ষকদের একটি নিবেদিত দল এবং আধুনিক সুবিধাদি সহ, আমরা আমাদের শিক্ষা প্রচেষ্টার প্রতিটি ক্ষেত্রে উৎকর্ষতার জন্য প্রচেষ্টা চালিয়ে যাচ্ছি।
-              </p>
-            </div>
-          </div>
+      </div>
+    </section>
 
-          {/* Mission and Vision */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-            <div className="bg-white border rounded-lg shadow-sm p-8" style={{ borderColor: '#E5E7EB' }}>
-              <h3 className="text-2xl font-bold mb-4" style={{ color: '#1E293B' }}>আমাদের লক্ষ্য</h3>
-              <p className="leading-relaxed" style={{ color: '#475569' }}>
-                শিক্ষার্থীদের বুদ্ধিবৃত্তিক, সামাজিক, আবেগজনক এবং শারীরিক ক্ষমতা বিকশিত করে ব্যাপক, উচ্চ মানের শিক্ষা প্রদান করা, তাদেরকে দায়িত্বশীল নাগরিক এবং সফল পেশাদার হিসাবে ক্ষমতায়ন করা।
-              </p>
-            </div>
-            <div className="bg-white border rounded-lg shadow-sm p-8" style={{ borderColor: '#E5E7EB' }}>
-              <h3 className="text-2xl font-bold mb-4" style={{ color: '#1E293B' }}>আমাদের দৃষ্টিভঙ্গি</h3>
-              <p className="leading-relaxed" style={{ color: '#475569' }}>
-                একাডেমিক উৎকর্ষতা, শিক্ষা পদ্ধতিতে উদ্ভাবন, চরিত্র গঠন এবং মানসম্পন্ন শিক্ষার মাধ্যমে জাতি গঠনে অবদানের জন্য স্বীকৃত একটি শীর্ষস্থানীয় শিক্ষা প্রতিষ্ঠান হওয়া।
-              </p>
-            </div>
-          </div>
 
-          {/* Core Values */}
-          <div className="mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-8" style={{ color: '#1E293B' }}>আমাদের মূল্যবোধ</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                { title: 'সততা', desc: 'আমরা সকল লেনদেনে সততা ও নৈতিক আচরণ বজায় রাখি' },
-                { title: 'উৎকর্ষতা', desc: 'আমরা শিক্ষা ও সেবায় সর্বোচ্চ মান অর্জনের প্রচেষ্টা করি' },
-                { title: 'সমন্বিতকরণ', desc: 'আমরা সকল পটভূমির শিক্ষার্থীদের স্বাগত ও সহায়তা করি' },
-                { title: 'উদ্ভাবন', desc: 'আমরা আধুনিক শিক্ষা পদ্ধতি ও প্রযুক্তি গ্রহণ করি' },
-                { title: 'সম্মান', desc: 'আমরা বৈচিত্র্য মূল্যবান মনে করি এবং সবাইকে সম্মান করি' },
-                { title: 'সম্প্রদায়', desc: 'আমরা অন্তর্ভুক্তি এবং পারস্পরিক সহায়তার অনুভূতি গড়ি' },
-              ].map((value, index) => (
-                <div key={index} className="bg-white border rounded-lg shadow-sm p-6 text-center hover:shadow-lg transition-all" style={{ borderColor: '#E5E7EB' }}>
-                  <h3 className="font-bold text-lg mb-2" style={{ color: '#1E293B' }}>{value.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: '#475569' }}>{value.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+    {/* =====================================================
+            INTRO + INSTITUTION
+        ===================================================== */}
+    <section className="section-spacing mb-2">
+      <div className="container-max px-4">
 
-          {/* Achievements */}
+        <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
+
+          {/* INTRO */}
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-8" style={{ color: '#1E293B' }}>মূল অর্জন</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {[
-                'জাতীয় পরীক্ষায় ধারাবাহিকভাবে ৯০% এর উপরে উত্তীর্ণ হার',
-                'মর্যাদাপূর্ণ বিশ্ববিদ্যালয়ে একাধিক বৃত্তি প্রাপক',
-                'আন্তঃস্কুল ক্রীড়া প্রতিযোগিতায় চ্যাম্পিয়ন',
-                'পুরস্কার বিজয়ী বিজ্ঞান ও প্রযুক্তি প্রকল্প',
-                'বিভিন্ন ক্ষেত্রে অবদান রাখা শক্তিশালী প্রাক্তন ছাত্র নেটওয়ার্ক',
-                'অত্যাধুনিক ডিজিটাল শিক্ষা সুবিধা',
-              ].map((achievement, index) => (
-                <div key={index} className="bg-white border rounded-lg shadow-sm p-6 flex gap-4 items-start" style={{ borderColor: '#E5E7EB' }}>
-                  <span className="font-bold text-2xl flex-shrink-0" style={{ color: '#F4B400' }}>✓</span>
-                  <span className="leading-relaxed" style={{ color: '#475569' }}>{achievement}</span>
+
+            <div className="mb-5 flex items-center gap-3">
+              <span className="h-1 w-8 rounded-full bg-secondary" />
+
+              <span className="text-sm font-semibold text-secondary">
+                {about.intro.label}
+              </span>
+            </div>
+
+            <h2 className="mb-7 max-w-3xl text-2xl font-bold leading-tight text-primary sm:text-3xl md:text-4xl">
+              {about.intro.title}
+            </h2>
+
+            <div className="max-w-3xl space-y-5">
+
+              {about.intro.paragraphs.map((paragraph, index) => (
+                <p
+                  key={index}
+                  className="text-[15px] leading-8 text-paragraph md:text-base"
+                >
+                  {paragraph}
+                </p>
+              ))}
+
+            </div>
+
+          </div>
+
+
+          {/* INSTITUTION INFO */}
+          <div className="h-fit overflow-hidden rounded-2xl border border-border bg-surface shadow-sm">
+
+            <div className="bg-primary px-6 py-5">
+              <h3 className="text-lg font-bold text-white">
+                {about.institution.title}
+              </h3>
+            </div>
+
+            <div className="divide-y divide-border px-6">
+
+              {about.institution.items.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-start justify-between gap-5 py-4"
+                >
+                  <span className="text-sm text-paragraph">
+                    {item.label}
+                  </span>
+
+                  <span className="text-right text-sm font-semibold text-primary">
+                    {item.value}
+                  </span>
                 </div>
               ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
-    </main>
-  )
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    {/* =====================================================
+            MISSION / VISION
+        ===================================================== */}
+    <section className="section-spacing bg-background mb-2">
+      <div className="container-max p-4">
+
+        <div className="mb-10">
+
+          <div className="mb-4 flex items-center gap-3">
+            <span className="h-1 w-8 rounded-full bg-secondary" />
+
+            <span className="text-sm font-semibold text-secondary">
+              আমাদের শিক্ষা দর্শন
+            </span>
+          </div>
+
+          <h2 className="text-2xl font-bold text-primary sm:text-3xl">
+            লক্ষ্য ও প্রত্যয়
+          </h2>
+
+        </div>
+
+
+        <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2">
+
+          {/* MISSION */}
+          <div className="bg-surface p-7 md:p-9">
+
+            <div className="mb-6 flex items-center gap-4">
+
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary-light text-xl">
+                🎯
+              </div>
+
+              <h3 className="text-xl font-bold text-primary">
+                {about.mission.title}
+              </h3>
+
+            </div>
+
+            <p className="text-[15px] leading-8 text-paragraph">
+              {about.mission.description}
+            </p>
+
+          </div>
+
+
+          {/* VISION */}
+          <div className="bg-surface p-7 md:p-9">
+
+            <div className="mb-6 flex items-center gap-4">
+
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary-light text-xl">
+                🌱
+              </div>
+
+              <h3 className="text-xl font-bold text-primary">
+                {about.vision.title}
+              </h3>
+
+            </div>
+
+            <p className="text-[15px] leading-8 text-paragraph">
+              {about.vision.description}
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    {/* =====================================================
+            EDUCATION
+        ===================================================== */}
+    <section className="section-spacing mb-2">
+      <div className="container-max p-4">
+
+        <div className="mb-10 max-w-3xl">
+
+          <div className="mb-4 flex items-center gap-3">
+            <span className="h-1 w-8 rounded-full bg-secondary" />
+
+            <span className="text-sm font-semibold text-secondary">
+              {about.education.label}
+            </span>
+          </div>
+
+          <h2 className="mb-4 text-2xl font-bold text-primary sm:text-3xl">
+            {about.education.title}
+          </h2>
+
+          <p className="text-[15px] leading-8 text-paragraph md:text-base">
+            {about.education.description}
+          </p>
+
+        </div>
+
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+          {about.education.features.map((item, index) => (
+            <div
+              key={index}
+              className="border-l-4 border-secondary bg-surface p-6 shadow-sm transition hover:shadow-md"
+            >
+
+              <div className="mb-5 text-2xl">
+                {icons[item.icon]}
+              </div>
+
+              <h3 className="mb-2 text-lg font-bold text-primary">
+                {item.title}
+              </h3>
+
+              <p className="text-sm leading-7 text-paragraph">
+                {item.description}
+              </p>
+
+            </div>
+          ))}
+
+        </div>
+
+      </div>
+    </section>
+
+
+    {/* =====================================================
+            VALUES
+        ===================================================== */}
+    <section className="section-spacing bg-background">
+      <div className="container-max p-4">
+
+        <div className="mb-10">
+
+          <div className="mb-4 flex items-center gap-3">
+            <span className="h-1 w-8 rounded-full bg-secondary" />
+
+            <span className="text-sm font-semibold text-secondary">
+              আমাদের আদর্শ
+            </span>
+          </div>
+
+          <h2 className="text-2xl font-bold text-primary sm:text-3xl">
+            আমাদের মূল্যবোধ
+          </h2>
+
+        </div>
+
+
+        <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+
+          {about.values.map((value, index) => (
+            <div
+              key={index}
+              className="flex gap-4"
+            >
+
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-secondary-light text-lg">
+                {icons[value.icon]}
+              </div>
+
+              <div>
+
+                <h3 className="mb-1 font-bold text-primary">
+                  {value.title}
+                </h3>
+
+                <p className="text-sm leading-6 text-paragraph">
+                  {value.description}
+                </p>
+
+              </div>
+
+            </div>
+          ))}
+
+        </div>
+
+      </div>
+    </section>
+
+
+
+
+  </main>
+  );
+
 }

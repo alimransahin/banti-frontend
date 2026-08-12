@@ -222,7 +222,7 @@ export default function Sidebar({ setCurrentPage }: SidebarProps) {
 
                 </div>
 
-                {/* ================= IMPORTANT LINKS ================= */}
+                {/* ================= IMPORTANT     LINKS ================= */}
                 <SidebarBox
                     title="গুরুত্বপূর্ণ লিংক"
                     items={importantLinks}

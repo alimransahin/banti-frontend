@@ -1,103 +1,187 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { verifyAdmin, setAdminSession, getAdminSession, initializeAdminUser } from '@/lib/data-store'
-import { Lock } from 'lucide-react'
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { verifyAdmin, setAdminSession, getAdminSession, initializeAdminUser } from "@/lib/data-store";
+import { Lock, User, Eye, EyeOff } from "lucide-react";
+import config from "@/config";
 
 export default function AdminLogin() {
-  const router = useRouter()
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter();
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
-    // Initialize admin user on mount
-    initializeAdminUser()
+    initializeAdminUser();
 
-    // Check if already logged in
     if (getAdminSession()) {
-      router.push('/admin/dashboard')
+      router.push("/admin/dashboard");
     }
-  }, [router])
+  }, [router]);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
-    setIsLoading(true)
+    e.preventDefault();
 
-    // Simulate delay
+    setError("");
+    setIsLoading(true);
+
     setTimeout(() => {
       if (verifyAdmin(username, password)) {
-        setAdminSession(true)
-        router.push('/admin/dashboard')
+        setAdminSession(true);
+        router.push("/admin/dashboard");
       } else {
-        setError('Invalid username or password')
-        setIsLoading(false)
+        setError("ইউজারনেম অথবা পাসওয়ার্ড সঠিক নয়।");
+        setIsLoading(false);
       }
-    }, 500)
-  }
+    }, 500);
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
-        <div className="flex justify-center mb-6">
-          <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center">
-            <Lock className="text-white" size={32} />
+    <main className="flex min-h-screen items-center justify-center bg-background px-4 py-8">
+      <div className="w-full max-w-md">
+
+        {/* Login Card */}
+        <div className="overflow-hidden rounded-2xl border border-border bg-surface shadow-lg">
+
+          {/* Header */}
+          <div className="relative overflow-hidden bg-primary px-6 py-8 text-center sm:px-8">
+
+            <div className="absolute right-0 top-0 h-40 w-40 translate-x-1/3 -translate-y-1/3 rounded-full bg-white/5" />
+
+            <div className="absolute bottom-0 left-0 h-32 w-32 -translate-x-1/3 translate-y-1/3 rounded-full bg-white/5" />
+
+            <div className="relative">
+
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-secondary text-white shadow-md">
+                <Lock size={30} />
+              </div>
+
+              <h1 className="text-2xl font-bold text-white sm:text-3xl">
+                অ্যাডমিন প্যানেল
+              </h1>
+
+              <p className="mt-2 text-sm text-white/70">
+                {config.schoolNameBN}
+              </p>
+
+            </div>
+
           </div>
+
+          {/* Form */}
+          <div className="p-6 sm:p-8">
+
+            <div className="mb-6">
+              <h2 className="text-lg font-bold text-primary">
+                লগইন করুন
+              </h2>
+
+              <p className="mt-1 text-sm text-muted">
+                প্রশাসনিক প্যানেলে প্রবেশ করতে আপনার তথ্য দিন।
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-5">
+
+              {/* Username */}
+              <div>
+                <label htmlFor="username" className="mb-2 block text-sm font-semibold text-primary">
+                  ইউজারনেম
+                </label>
+
+                <div className="relative">
+                  <User size={18} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
+
+                  <input
+                    id="username"
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="ইউজারনেম লিখুন"
+                    required
+                    disabled={isLoading}
+                    className="w-full rounded-lg border border-border bg-background py-2.5 pl-10 pr-4 text-sm text-primary outline-none transition placeholder:text-muted focus:border-secondary focus:ring-2 focus:ring-secondary/20 disabled:cursor-not-allowed disabled:opacity-60"
+                  />
+                </div>
+              </div>
+
+              {/* Password */}
+              <div>
+                <label htmlFor="password" className="mb-2 block text-sm font-semibold text-primary">
+                  পাসওয়ার্ড
+                </label>
+
+                <div className="relative">
+                  <Lock size={18} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
+
+                  <input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="পাসওয়ার্ড লিখুন"
+                    required
+                    disabled={isLoading}
+                    className="w-full rounded-lg border border-border bg-background py-2.5 pl-10 pr-11 text-sm text-primary outline-none transition placeholder:text-muted focus:border-secondary focus:ring-2 focus:ring-secondary/20 disabled:cursor-not-allowed disabled:opacity-60"
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-muted transition hover:text-secondary"
+                    aria-label={showPassword ? "পাসওয়ার্ড লুকান" : "পাসওয়ার্ড দেখুন"}
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Error */}
+              {error && (
+                <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                  {error}
+                </div>
+              )}
+
+              {/* Submit */}
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-secondary px-4 py-2.5 text-sm font-bold text-white transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                <Lock size={17} />
+                {isLoading ? "লগইন হচ্ছে..." : "লগইন করুন"}
+              </button>
+
+            </form>
+
+            {/* Demo Credentials */}
+            <div className="mt-6 rounded-lg border border-border bg-background px-4 py-3 text-center">
+              <p className="text-xs text-muted">
+                Demo Login
+              </p>
+
+              <p className="mt-1 text-sm font-semibold text-primary">
+                <span className="text-secondary">admin</span>
+                <span className="mx-1 text-muted">/</span>
+                <span className="text-secondary">admin123</span>
+              </p>
+            </div>
+
+          </div>
+
         </div>
 
-        <h1 className="text-3xl font-bold text-center text-gray-900 mb-2">Admin Portal</h1>
-        <p className="text-center text-gray-600 mb-8">Chakgopal High School</p>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Username</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              placeholder="Enter username"
-              required
-              disabled={isLoading}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              placeholder="Enter password"
-              required
-              disabled={isLoading}
-            />
-          </div>
-
-          {error && (
-            <div className="p-3 bg-red-50 border border-red-300 text-red-800 rounded-lg text-sm">
-              {error}
-            </div>
-          )}
-
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-blue-600 text-white font-bold py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isLoading ? 'Logging in...' : 'Login'}
-          </button>
-        </form>
-
-        <p className="text-center text-sm text-gray-600 mt-6">
-          Demo credentials: <br />
-          <span className="font-mono bg-gray-100 px-2 py-1 rounded">admin / admin123</span>
+        {/* Footer */}
+        <p className="mt-5 text-center text-xs text-muted">
+          © {new Date().getFullYear()} {config.schoolNameEN}. All rights reserved.
         </p>
+
       </div>
-    </div>
-  )
+    </main>
+  );
 }

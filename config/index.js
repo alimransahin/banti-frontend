@@ -8,6 +8,8 @@ const config = {
   principalName: process.env.NEXT_PUBLIC_PRINCIPAL_NAME || "",
   chairmanName: process.env.NEXT_PUBLIC_CHAIRMAN_NAME || "",
   address: process.env.NEXT_PUBLIC_ADDRESS || "",
+
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 };
 
 export default config;

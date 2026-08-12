@@ -2,12 +2,30 @@ import Link from "next/link";
 import config from "@/config";
 
 const footerLinks = [
-    { href: "/notices", label: "নোটিশ" },
-    { href: "/contact", label: "যোগাযোগ" },
-    { href: "/academic", label: "শিক্ষা সংক্রান্ত" },
-    { href: "#", label: "EMIS" },
-    { href: "#", label: "শিক্ষা ও তথ্যপ্রযুক্তি" },
-    { href: "#", label: "JSC/SSC RESULT" },
+    {
+        href: "/notices",
+        label: "নোটিশ",
+    },
+    {
+        href: "/contact",
+        label: "যোগাযোগ",
+    },
+    {
+        href: "https://dhakaeducationboard.gov.bd/",
+        label: "ঢাকা শিক্ষা বোর্ড",
+    },
+    {
+        href: "https://dshe.gov.bd/",
+        label: "DSHE",
+    },
+    {
+        href: "https://emis.gov.bd/",
+        label: "EMIS",
+    },
+    {
+        href: "https://www.educationboardresults.gov.bd/",
+        label: "এসএসসি/এইচএসসি ফলাফল",
+    },
 ];
 
 export default function Footer() {
@@ -148,9 +166,12 @@ export default function Footer() {
                                 📞
                             </span>
 
-                            <p className="m-0 text-xs leading-6 text-white/70">
+                            <a
+                                href={`tel:${config.mobileNo}`}
+                                className="m-0 text-xs leading-6 text-white/70 transition hover:text-white"
+                            >
                                 {config.mobileNo}
-                            </p>
+                            </a>
                         </div>
 
                         {/* Email */}
@@ -159,9 +180,12 @@ export default function Footer() {
                                 ✉
                             </span>
 
-                            <p className="m-0 break-all text-xs leading-6 text-white/70">
+                            <a
+                                href={`mailto:${config.email}`}
+                                className="m-0 break-all text-xs leading-6 text-white/70 transition hover:text-white"
+                            >
                                 {config.email}
-                            </p>
+                            </a>
                         </div>
 
                     </div>

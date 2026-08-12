@@ -4,50 +4,44 @@ import schoolContent from "@/data/schoolContent.json";
 
 import config from "@/config";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getNotices, Notice } from "@/lib/notice-api";
+import NoticeViewModal from "../ui/NoticeViewModal";
 
 export default function NoticeHeroAbout() {
+    const [notices, setNotices] = useState<Notice[]>([]);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+    const [selectedNotice, setSelectedNotice] = useState<Notice | null>(null);
 
-    const notices = [
-        {
-            id: "1",
-            title: "নিয়োগ বিজ্ঞপ্তি প্রকাশিত হয়েছে",
-            href: "/notices/1",
-        },
-        {
-            id: "2",
-            title: "এসএসসি পরীক্ষার সময়সূচী প্রকাশিত",
-            href: "/notices/2",
-        },
-        {
-            id: "3",
-            title: "ছুটির দিনের তালিকা প্রকাশিত",
-            href: "/notices/3",
-        },
-        {
-            id: "4",
-            title: "নতুন শিক্ষার্থী ভর্তি সংক্রান্ত বিজ্ঞপ্তি",
-            href: "/notices/4",
-        },
-        {
-            id: "5",
-            title: "বার্ষিক ক্রীড়া প্রতিযোগিতা সংক্রান্ত নোটিশ",
-            href: "/notices/5",
-        },
-        {
-            id: "6",
-            title: "অভিভাবক সমাবেশ সংক্রান্ত বিজ্ঞপ্তি",
-            href: "/notices/6",
-        },
-        {
-            id: "7",
-            title: "বিদ্যালয়ের নতুন সময়সূচী প্রকাশিত",
-            href: "/notices/7",
-        },
-    ];
+    useEffect(() => {
+        loadNotices();
+    }, []);
 
-    const latestNotices = notices.slice(-5);
+    const loadNotices = async () => {
+        try {
+            setLoading(true);
+            setError("");
+
+            const data = await getNotices();
+
+            const sorted = [...data].sort(
+                (a, b) =>
+                    new Date(b.createdAt).getTime() -
+                    new Date(a.createdAt).getTime()
+            );
+
+            setNotices(sorted);
+        } catch (error) {
+            console.error("Load notices error:", error);
+            setError("নোটিশের তথ্য লোড করা যায়নি।");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const latestNotices = notices.slice(0, 5);
 
     const schoolImages = [
         "/assets/banner/1.png",
@@ -56,50 +50,48 @@ export default function NoticeHeroAbout() {
     ];
 
     return (
-        <div>            {/* ================= NOTICE MARQUEE ================= */}
+        <div>
+            {/* ================= NOTICE MARQUEE ================= */}
             <div className="mb-5 flex overflow-hidden rounded-xl border border-border bg-accent-light shadow-sm">
-
-                {/* Label */}
                 <div className="z-10 shrink-0 bg-accent px-4 py-2.5 text-xs font-bold text-primary-dark">
                     📢 নোটিশ
                 </div>
 
-                {/* Marquee */}
                 <div className="min-w-0 flex-1 overflow-hidden py-2.5">
 
-                    <div className="flex w-max animate-marquee">
-
-                        {/* First Group */}
-                        <div className="flex shrink-0 items-center">
-
-                            {latestNotices.map((notice) => (
-                                <Link key={`first-${notice.id}`} href={notice.href} className="mx-5 shrink-0 whitespace-nowrap text-xs font-semibold text-primary transition hover:text-secondary">
-                                    {notice.title}
-
-                                    <span className="mx-5 text-accent">
-                                        ★★★
-                                    </span>
-                                </Link>
-                            ))}
-
+                    {loading && (
+                        <div className="px-5 text-xs font-semibold text-muted">
+                            নোটিশ লোড হচ্ছে...
                         </div>
+                    )}
 
-                        {/* Duplicate Group */}
-                        <div className="flex shrink-0 items-center">
-
-                            {latestNotices.map((notice) => (
-                                <Link key={`second-${notice.id}`} href={notice.href} className="mx-5 shrink-0 whitespace-nowrap text-xs font-semibold text-primary transition hover:text-secondary">
-                                    {notice.title}
-
-                                    <span className="mx-5 text-accent">
-                                        ★★★
-                                    </span>
-                                </Link>
-                            ))}
-
+                    {!loading && error && (
+                        <div className="px-5 text-xs font-semibold text-red-600">
+                            {error}
                         </div>
+                    )}
 
-                    </div>
+                    {!loading && !error && latestNotices.length > 0 && (
+                        <div className="flex w-max animate-marquee">
+                            {[...latestNotices, ...latestNotices].map((notice, index) => (
+                                <button
+                                    key={`${notice._id}-${index}`}
+                                    type="button"
+                                    onClick={() => setSelectedNotice(notice)}
+                                    className="mx-5 shrink-0 cursor-pointer whitespace-nowrap text-xs font-semibold text-primary transition hover:text-secondary"
+                                >
+                                    {notice.title}
+                                    <span className="mx-5 text-accent">★★★</span>
+                                </button>
+                            ))}
+                        </div>
+                    )}
+
+                    {!loading && !error && latestNotices.length === 0 && (
+                        <div className="px-5 text-xs font-semibold text-muted">
+                            বর্তমানে কোনো নোটিশ প্রকাশিত হয়নি।
+                        </div>
+                    )}
 
                 </div>
             </div>
@@ -159,6 +151,10 @@ export default function NoticeHeroAbout() {
                 </Link>
 
             </section>
+            <NoticeViewModal
+                notice={selectedNotice}
+                onClose={() => setSelectedNotice(null)}
+            />
         </div>
     )
 }

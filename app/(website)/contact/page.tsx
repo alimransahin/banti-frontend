@@ -1,5 +1,6 @@
 "use client";
 
+import PageHero from "@/components/ui/PageHero";
 import config from "@/config";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
@@ -12,37 +13,11 @@ export default function Contact() {
       {/* =====================================================
             HERO
         ===================================================== */}
-      <section className="relative mb-4 overflow-hidden bg-primary rounded">
-
-        <div className="absolute right-0 top-0 h-72 w-72 translate-x-1/3 -translate-y-1/3 rounded-full bg-white/5" />
-
-        <div className="absolute bottom-0 left-0 h-64 w-64 -translate-x-1/3 translate-y-1/3 rounded-full bg-white/5" />
-
-        <div className="container-max relative px-4 py-14 sm:py-16 md:py-20">
-
-          <div className="max-w-3xl">
-
-            <div className="mb-5 flex items-center gap-3">
-              <span className="h-px w-10 bg-secondary" />
-
-              <span className="text-sm font-semibold tracking-wide text-white/80">
-                যোগাযোগ
-              </span>
-            </div>
-
-            <h1 className="mb-4 text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
-              যোগাযোগ করুন
-            </h1>
-
-            <p className="max-w-2xl text-base leading-8 text-white/80 md:text-lg">
-              বিদ্যালয় সম্পর্কিত যেকোনো তথ্য, পরামর্শ বা প্রয়োজনে
-              আমাদের সঙ্গে যোগাযোগ করুন।
-            </p>
-
-          </div>
-
-        </div>
-      </section>
+      <PageHero
+        eyebrow="যোগাযোগ"
+        title="যোগাযোগ করুন"
+        description="বিদ্যালয় সম্পর্কিত যেকোনো তথ্য, পরামর্শ বা প্রয়োজনে আমাদের সঙ্গে যোগাযোগ করুন।"
+      />
 
 
       {/* =====================================================

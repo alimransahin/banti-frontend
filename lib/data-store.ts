@@ -1,28 +1,27 @@
 // Data types
-export interface Teacher {
-  id: string
-  name: string
-  subject: string
-  qualification: string
-  experience: string
-  email: string
-  phone: string
-  address: string
-  specialization: string
-  bio: string
-  photo: string
-}
+export type Teacher = {
+  _id: string;
+  name: string;
+  designation:
+  | "প্রধান শিক্ষক"
+  | "সহকারি প্রধান শিক্ষক"
+  | "সহকারি শিক্ষক"
+  | "অফিস সহকারি কাম কম্পিউটার অপারেটর"
+  | "কম্পিউটার ল্যাব অপারেটর"
+  | "অফিস সহায়ক"
+  | "নিরাপত্তা রক্ষি"
+  | "পরিচ্ছন্নতা কর্মি"
+  | "নৈশ প্রহরী"
+  | "আয়া" |
+  null;
+  subject: string;
+  qualification: string;
+  photo: string;
+  phone: string;
+  email: string;
+};
 
-export interface Notice {
-  id: string
-  title: string
-  content: string
-  category: string
-  priority: 'low' | 'medium' | 'high'
-  createdAt: string
-  expiresAt: string
-  status: 'active' | 'archived'
-}
+
 
 export interface AdminUser {
   id: string
@@ -48,85 +47,7 @@ export function initializeAdminUser() {
   }
 }
 
-// Teacher operations
-export function getTeachers(): Teacher[] {
-  if (typeof window === 'undefined') return []
-  const data = localStorage.getItem(TEACHERS_KEY)
-  return data ? JSON.parse(data) : []
-}
 
-export function addTeacher(teacher: Omit<Teacher, 'id'>): Teacher {
-  const newTeacher: Teacher = {
-    ...teacher,
-    id: Date.now().toString(),
-  }
-  const teachers = getTeachers()
-  teachers.push(newTeacher)
-  localStorage.setItem(TEACHERS_KEY, JSON.stringify(teachers))
-  return newTeacher
-}
-
-export function updateTeacher(id: string, updates: Partial<Teacher>): Teacher | null {
-  const teachers = getTeachers()
-  const index = teachers.findIndex((t) => t.id === id)
-  if (index === -1) return null
-  teachers[index] = { ...teachers[index], ...updates }
-  localStorage.setItem(TEACHERS_KEY, JSON.stringify(teachers))
-  return teachers[index]
-}
-
-export function deleteTeacher(id: string): boolean {
-  const teachers = getTeachers()
-  const filtered = teachers.filter((t) => t.id !== id)
-  if (filtered.length === teachers.length) return false
-  localStorage.setItem(TEACHERS_KEY, JSON.stringify(filtered))
-  return true
-}
-
-// Notice operations
-export function getNotices(): Notice[] {
-  if (typeof window === 'undefined') return []
-  const data = localStorage.getItem(NOTICES_KEY)
-  return data ? JSON.parse(data) : []
-}
-
-export function getActiveNotices(): Notice[] {
-  const notices = getNotices()
-  const today = new Date()
-  return notices.filter(
-    (n) =>
-      n.status === 'active' &&
-      new Date(n.expiresAt) > today
-  )
-}
-
-export function addNotice(notice: Omit<Notice, 'id'>): Notice {
-  const newNotice: Notice = {
-    ...notice,
-    id: Date.now().toString(),
-  }
-  const notices = getNotices()
-  notices.push(newNotice)
-  localStorage.setItem(NOTICES_KEY, JSON.stringify(notices))
-  return newNotice
-}
-
-export function updateNotice(id: string, updates: Partial<Notice>): Notice | null {
-  const notices = getNotices()
-  const index = notices.findIndex((n) => n.id === id)
-  if (index === -1) return null
-  notices[index] = { ...notices[index], ...updates }
-  localStorage.setItem(NOTICES_KEY, JSON.stringify(notices))
-  return notices[index]
-}
-
-export function deleteNotice(id: string): boolean {
-  const notices = getNotices()
-  const filtered = notices.filter((n) => n.id !== id)
-  if (filtered.length === notices.length) return false
-  localStorage.setItem(NOTICES_KEY, JSON.stringify(filtered))
-  return true
-}
 
 // Admin authentication
 export function verifyAdmin(username: string, password: string): boolean {

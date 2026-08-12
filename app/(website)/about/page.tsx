@@ -1,3 +1,4 @@
+import PageHero from "@/components/ui/PageHero";
 import config from "@/config";
 import about from "@/data/about.json";
 import type { Metadata } from "next";
@@ -22,38 +23,11 @@ export default function About() {
     {/* =====================================================
             HERO
         ===================================================== */}
-    <section className="relative overflow-hidden bg-primary mb-2 rounded">
-
-      <div className="absolute inset-0 opacity-[0.06]">
-        <div className="absolute right-0 top-0 h-80 w-80 rounded-full bg-white" />
-        <div className="absolute -bottom-32 -left-20 h-96 w-96 rounded-full bg-white" />
-      </div>
-
-      <div className="container-max relative px-4 py-14 sm:py-16 md:py-20">
-
-        <div className="max-w-3xl">
-
-          <div className="mb-5 flex items-center gap-3">
-            <span className="h-px w-10 bg-secondary" />
-
-            <span className="text-sm font-semibold tracking-wide text-white/80">
-              {about.hero.badge}
-            </span>
-          </div>
-
-          <h1 className="mb-5 text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
-            {about.hero.title}
-          </h1>
-
-          <p className="max-w-2xl text-base leading-8 text-white/80 md:text-lg">
-            {config.schoolNameBN} — জ্ঞান, নৈতিকতা ও
-            মানবিক মূল্যবোধে শিক্ষার্থীদের গড়ে তোলার প্রত্যয়ে।
-          </p>
-
-        </div>
-
-      </div>
-    </section>
+    <PageHero
+      eyebrow="প্রতিষ্ঠান পরিচিতি"
+      title="আমাদের প্রতিষ্ঠান"
+      description="আমাদের বিদ্যালয় সম্পর্কে বিস্তারিত তথ্য জানুন।"
+    />
 
 
     {/* =====================================================

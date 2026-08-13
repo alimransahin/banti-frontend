@@ -160,7 +160,7 @@ export default function AdminLogin() {
             </form>
 
             {/* Demo Credentials */}
-            <div className="mt-6 rounded-lg border border-border bg-background px-4 py-3 text-center">
+            {/* <div className="mt-6 rounded-lg border border-border bg-background px-4 py-3 text-center">
               <p className="text-xs text-muted">
                 Demo Login
               </p>
@@ -170,7 +170,7 @@ export default function AdminLogin() {
                 <span className="mx-1 text-muted">/</span>
                 <span className="text-secondary">admin123</span>
               </p>
-            </div>
+            </div> */}
 
           </div>
 

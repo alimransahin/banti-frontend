@@ -30,8 +30,6 @@ export interface AdminUser {
 }
 
 // Storage keys
-const TEACHERS_KEY = 'school_teachers'
-const NOTICES_KEY = 'school_notices'
 const ADMIN_USERS_KEY = 'school_admin_users'
 
 // Initialize default admin user
@@ -58,14 +56,16 @@ export function verifyAdmin(username: string, password: string): boolean {
 }
 
 export function getAdminSession(): boolean {
-  if (typeof window === 'undefined') return false
-  return localStorage.getItem('admin_session') === 'true'
+  if (typeof window === 'undefined') return false;
+  return sessionStorage.getItem('admin_session') === 'true';
 }
 
 export function setAdminSession(isLoggedIn: boolean) {
+  if (typeof window === 'undefined') return;
+
   if (isLoggedIn) {
-    localStorage.setItem('admin_session', 'true')
+    sessionStorage.setItem('admin_session', 'true');
   } else {
-    localStorage.removeItem('admin_session')
+    sessionStorage.removeItem('admin_session');
   }
 }

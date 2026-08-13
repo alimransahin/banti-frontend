@@ -1,8 +1,9 @@
 "use client";
-import schoolContent from "@/data/schoolContent.json";
 
-import { useState } from "react";
-import config from "@/config";
+import { useEffect, useState } from "react";
+import { getTeachers } from "@/lib/teacher-api";
+import { getCommittees } from "@/lib/committee-api";
+import schoolContent from "@/data/schoolContent.json";
 
 type Person = {
     title: string;
@@ -12,25 +13,77 @@ type Person = {
 };
 
 export default function ChairmanPrincipal() {
-    const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
+    const [selectedPerson, setSelectedPerson] =
+        useState<Person | null>(null);
 
-    const chairman: Person = {
-        title: schoolContent[1].title,
-        name: config.chairmanName,
-        image:
-            "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=400&fit=crop",
-        content: schoolContent[1].content,
-    };
+    const [people, setPeople] = useState<Person[]>([]);
+    const [loading, setLoading] = useState(true);
 
-    const principal: Person = {
-        title: schoolContent[2].title,
-        name: config.principalName,
-        image:
-            "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=400&fit=crop",
-        content: schoolContent[2].content,
-    };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [teachers, committees] = await Promise.all([
+                    getTeachers(),
+                    getCommittees(),
+                ]);
 
-    const people = [chairman, principal];
+                // ================= CHAIRMAN =================
+                const chairman = committees.find(
+                    (committee) =>
+                        committee.designation === "সভাপতি"
+                );
+
+                // ================= PRINCIPAL =================
+                const principal = teachers.find(
+                    (teacher) =>
+                        teacher.designation === "প্রধান শিক্ষক"
+                );
+
+                const data: Person[] = [];
+
+                // Chairman found
+                if (chairman) {
+                    data.push({
+                        title: schoolContent[1].title,
+                        name: chairman.name,
+                        image: chairman.photo || "",
+                        content: schoolContent[1].content,
+                    });
+                }
+
+                // Principal found
+                if (principal) {
+                    data.push({
+                        title: schoolContent[2].title,
+                        name: principal.name,
+                        image: principal.photo || "",
+                        content: schoolContent[2].content,
+                    });
+                }
+
+                setPeople(data);
+
+            } catch (error) {
+                console.error(
+                    "Failed to fetch chairman and principal:",
+                    error
+                );
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    // Loading
+    if (loading) {
+        return (
+            <div className="rounded-xl border border-border bg-surface p-10 text-center">
+                তথ্য লোড হচ্ছে...
+            </div>
+        );
+    }
 
     return (
         <>
@@ -49,86 +102,99 @@ export default function ChairmanPrincipal() {
                             shadow-sm
                         "
                     >
+
                         {/* Image */}
                         <div className="mb-4">
-                            <img
-                                src={person.image}
-                                alt={person.name}
-                                className="
-                                    aspect-[3/4]
-                                    w-full
-                                    max-h-[300px]
-                                    rounded-xl
-                                    object-cover
-                                    shadow-sm
-                                "
-                            />
+                            {person.image ? (
+                                <img
+                                    src={person.image}
+                                    alt={person.name}
+                                    className="
+                                        aspect-[3/4]
+                                        w-full
+                                        max-h-[300px]
+                                        rounded-xl
+                                        object-cover
+                                        shadow-sm
+                                    "
+                                />
+                            ) : (
+                                <div
+                                    className="
+                                        flex
+                                        aspect-[3/4]
+                                        max-h-[300px]
+                                        w-full
+                                        items-center
+                                        justify-center
+                                        rounded-xl
+                                        bg-primary
+                                        text-5xl
+                                    "
+                                >
+                                    👤
+                                </div>
+                            )}
                         </div>
 
-                        {/* Content */}
-                        <div>
+                        {/* Title */}
+                        <span
+                            className="
+                                mb-2
+                                inline-block
+                                rounded-full
+                                bg-secondary-light
+                                px-3
+                                py-1
+                                text-xs
+                                font-semibold
+                                text-secondary
+                            "
+                        >
+                            {person.title}
+                        </span>
 
-                            {/* Title */}
-                            <span
-                                className="
-                                    mb-2
-                                    inline-block
-                                    rounded-full
-                                    bg-secondary-light
-                                    px-3
-                                    py-1
-                                    text-xs
-                                    font-semibold
-                                    text-secondary
-                                "
-                            >
-                                {person.title}
-                            </span>
+                        {/* Name */}
+                        <h3
+                            className="
+                                mb-2
+                                text-lg
+                                font-bold
+                                leading-snug
+                                text-primary
+                            "
+                        >
+                            {person.name}
+                        </h3>
 
-                            {/* Name */}
-                            <h3
-                                className="
-                                    mb-2
-                                    text-lg
-                                    font-bold
-                                    leading-snug
-                                    text-primary
-                                "
-                            >
-                                {person.name}
-                            </h3>
+                        {/* Preview */}
+                        <p
+                            className="
+                                text-sm
+                                leading-7
+                                text-text
+                                text-justify
+                            "
+                        >
+                            {person.content.split("\n\n")[0]}
+                        </p>
 
-                            {/* Preview */}
-                            <p
-                                className="
-                                    text-sm
-                                    leading-7
-                                    text-text
-                                    text-justify
-                                "
-                            >
-                                {person.content.split("\n\n")[0]}
-                            </p>
+                        {/* Details */}
+                        <button
+                            type="button"
+                            onClick={() =>
+                                setSelectedPerson(person)
+                            }
+                            className="
+                                mt-3
+                                font-semibold
+                                text-primary
+                                hover:text-secondary
+                            "
+                        >
+                            বিস্তারিত →
+                        </button>
 
-                            {/* Details */}
-                            <button
-                                type="button"
-                                onClick={() => setSelectedPerson(person)}
-                                className="
-                                    mt-3
-                                    inline-flex
-                                    items-center
-                                    gap-1
-                                    font-semibold
-                                    text-primary
-                                    transition-colors
-                                    hover:text-secondary
-                                "
-                            >
-                                বিস্তারিত <span>→</span>
-                            </button>
-
-                        </div>
                     </section>
                 ))}
 
@@ -167,7 +233,9 @@ export default function ChairmanPrincipal() {
                         {/* Close */}
                         <button
                             type="button"
-                            onClick={() => setSelectedPerson(null)}
+                            onClick={() =>
+                                setSelectedPerson(null)
+                            }
                             className="
                                 absolute
                                 right-4
@@ -182,30 +250,26 @@ export default function ChairmanPrincipal() {
                                 bg-black/60
                                 text-xl
                                 text-white
-                                transition
-                                hover:bg-black/80
                             "
-                            aria-label="Close"
                         >
                             ×
                         </button>
 
-                        {/* Scroll Area */}
                         <div className="max-h-[90vh] overflow-y-auto">
 
-                            {/* Image */}
-                            <img
-                                src={selectedPerson.image}
-                                alt={selectedPerson.name}
-                                className="
-                                    h-[260px]
-                                    w-full
-                                    object-cover
-                                    sm:h-[320px]
-                                "
-                            />
+                            {selectedPerson.image && (
+                                <img
+                                    src={selectedPerson.image}
+                                    alt={selectedPerson.name}
+                                    className="
+                                        h-[260px]
+                                        w-full
+                                        object-cover
+                                        sm:h-[320px]
+                                    "
+                                />
+                            )}
 
-                            {/* Content */}
                             <div className="p-5 sm:p-7">
 
                                 <span
@@ -248,7 +312,6 @@ export default function ChairmanPrincipal() {
                                 </div>
 
                             </div>
-
                         </div>
                     </div>
                 </div>

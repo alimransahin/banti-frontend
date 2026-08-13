@@ -6,11 +6,11 @@ import { useState } from "react";
 
 const navItems = [
     { href: "/", label: "হোম", icon: "🏠" },
-    { href: "/about", label: "প্রতিষ্ঠান সম্পর্কিত", icon: "ℹ️" },
-    { href: "/administration", label: "প্রশাসনিক তথ্য", icon: "📋" },
-    { href: "/teachers", label: "শিক্ষক ও কর্মচারী", icon: "👨‍🏫" },
     { href: "/notices", label: "নোটিশ", icon: "📢" },
-    { href: "/academic", label: "একাডেমিক", icon: "📚" },
+    { href: "/teachers", label: "শিক্ষক ও কর্মচারী", icon: "👨‍🏫" },
+    { href: "/committee", label: "পরিচালনা কমিটি", icon: "👥" },
+    { href: "/about", label: "প্রতিষ্ঠান সম্পর্কিত", icon: "ℹ️" },
+    { href: "/information", label: "বিবিধ", icon: "📋" },
     { href: "/gallery", label: "গ্যালারি ও কর্নার", icon: "🖼️" },
     { href: "/contact", label: "যোগাযোগ", icon: "✉️" },
 ];
@@ -32,7 +32,7 @@ export default function Navigation() {
     };
 
     return (
-        <nav className="w-full bg-secondary border-b-[3px] border-accent shadow-sm">
+        <nav className="w-full border-b-[3px] border-accent bg-secondary shadow-sm">
 
             {/* ================= DESKTOP / TABLET ================= */}
             <div className="hidden md:block">
@@ -46,15 +46,7 @@ export default function Navigation() {
                                 <Link
                                     key={item.href}
                                     href={item.href}
-                                    className={[
-                                        "relative px-2.5 py-2 lg:px-3",
-                                        "whitespace-nowrap text-[13px] font-bold lg:text-[14px]",
-                                        "no-underline transition-colors duration-200",
-
-                                        active
-                                            ? "text-accent"
-                                            : "text-white hover:text-accent",
-                                    ].join(" ")}
+                                    className={`relative px-2.5 py-2 text-[13px] font-bold no-underline transition-colors duration-200 lg:px-3 lg:text-[14px] ${active ? "text-accent" : "text-white hover:text-accent"}`}
                                 >
                                     {item.label}
 
@@ -68,15 +60,7 @@ export default function Navigation() {
                         {/* Login */}
                         <Link
                             href="/admin"
-                            className={[
-                                "ml-1 rounded px-3 py-2",
-                                "whitespace-nowrap text-[13px] font-bold lg:text-[14px]",
-                                "no-underline transition-all duration-200",
-
-                                pathname.startsWith("/admin")
-                                    ? "bg-accent text-primary-dark"
-                                    : "text-white hover:bg-secondary-dark",
-                            ].join(" ")}
+                            className={`ml-1 rounded px-3 py-2 text-[13px] font-bold no-underline transition-all duration-200 lg:text-[14px] ${pathname.startsWith("/admin") ? "bg-accent text-primary-dark" : "text-white hover:bg-secondary-dark"}`}
                         >
                             🔐 লগইন
                         </Link>
@@ -88,7 +72,7 @@ export default function Navigation() {
             {/* ================= MOBILE ================= */}
             <div className="md:hidden">
 
-                {/* Mobile Menu Header */}
+                {/* Mobile Header */}
                 <div className="flex items-center justify-between px-4 py-2.5">
 
                     <span className="text-[15px] font-bold text-white">
@@ -99,18 +83,8 @@ export default function Navigation() {
                         type="button"
                         aria-label="Toggle navigation menu"
                         aria-expanded={mobileMenuOpen}
-                        onClick={() =>
-                            setMobileMenuOpen(!mobileMenuOpen)
-                        }
-                        className="
-                            flex h-9 w-10 items-center justify-center
-                            rounded border border-white/20
-                            bg-secondary-dark
-                            text-xl text-white
-                            transition
-                            hover:bg-primary-dark
-                            active:scale-95
-                        "
+                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        className="flex h-9 w-10 items-center justify-center rounded border border-white/20 bg-secondary-dark text-xl text-white transition hover:bg-primary-dark active:scale-95"
                     >
                         {mobileMenuOpen ? "✕" : "☰"}
                     </button>
@@ -129,22 +103,15 @@ export default function Navigation() {
                                     key={item.href}
                                     href={item.href}
                                     onClick={closeMobileMenu}
-                                    className={[
-                                        "flex w-full items-center gap-3",
-                                        "border-l-4 px-5 py-3",
-                                        "text-[14px] font-bold no-underline",
-                                        "transition-all duration-200",
-
-                                        active
-                                            ? "border-accent bg-primary-dark text-accent"
-                                            : "border-transparent text-white hover:bg-primary-dark hover:text-accent",
-                                    ].join(" ")}
+                                    className={`flex w-full items-center gap-3 border-l-4 px-5 py-3 text-[14px] font-bold no-underline transition-all duration-200 ${active ? "border-accent bg-primary-dark text-accent" : "border-transparent text-white hover:bg-primary-dark hover:text-accent"}`}
                                 >
                                     <span className="w-6 text-center">
                                         {item.icon}
                                     </span>
 
-                                    <span>{item.label}</span>
+                                    <span>
+                                        {item.label}
+                                    </span>
                                 </Link>
                             );
                         })}
@@ -153,22 +120,15 @@ export default function Navigation() {
                         <Link
                             href="/admin"
                             onClick={closeMobileMenu}
-                            className={[
-                                "flex w-full items-center gap-3",
-                                "border-l-4 border-t px-5 py-3",
-                                "text-[14px] font-bold no-underline",
-                                "transition-all duration-200",
-
-                                pathname.startsWith("/admin")
-                                    ? "border-accent bg-primary-dark text-accent"
-                                    : "border-transparent bg-secondary-dark text-white hover:text-accent",
-                            ].join(" ")}
+                            className={`flex w-full items-center gap-3 border-l-4 border-t px-5 py-3 text-[14px] font-bold no-underline transition-all duration-200 ${pathname.startsWith("/admin") ? "border-accent bg-primary-dark text-accent" : "border-transparent bg-secondary-dark text-white hover:text-accent"}`}
                         >
                             <span className="w-6 text-center">
                                 🔐
                             </span>
 
-                            <span>লগইন</span>
+                            <span>
+                                লগইন
+                            </span>
                         </Link>
 
                     </div>

@@ -20,7 +20,9 @@ export function AdminSidebar() {
   const menuItems = [
     { label: "ড্যাশবোর্ড", href: "/admin/dashboard", icon: Home },
     { label: "শিক্ষক ও কর্মচারী", href: "/admin/dashboard/teachers", icon: Users },
+    { label: "ম্যানেজিং কমিটি", href: "/admin/dashboard/committee", icon: Users },
     { label: "নোটিশ", href: "/admin/dashboard/notices", icon: FileText },
+    { label: "প্রশাসনিক তথ্য", href: "/admin/dashboard/administration", icon: FileText },
   ];
 
   return (

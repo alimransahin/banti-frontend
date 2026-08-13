@@ -56,6 +56,9 @@ export default function Header() {
                         <p className="m-1 font-bold text-primary">
                             EIIN: {config.eiin}
                         </p>
+                        <p className="m-1 font-bold text-primary">
+                            MPO Code: {config.mpo}
+                        </p>
 
                         <p className="m-1 font-bold text-secondary">
                             Mobile No: {config.mobileNo}

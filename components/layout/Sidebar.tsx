@@ -137,22 +137,6 @@ export default function Sidebar({ setCurrentPage }: SidebarProps) {
         <>
             <aside className="w-full space-y-5">
 
-                {/* ================= ACHIEVEMENT ================= */}
-                <div className="rounded-lg border border-border bg-surface p-3 text-center shadow-sm">
-
-                    <h4 className="mb-3 text-[13px] font-bold text-primary">
-                        দাক্ষিণ্যের স্বীকৃতি
-                    </h4>
-
-                    <img
-                        src="https://images.unsplash.com/photo-1599305445671-639c74d37de4?w=150&h=80&fit=crop"
-                        alt="Awards"
-                        className="h-auto w-full rounded object-cover"
-                    />
-
-                </div>
-
-
                 {/* ================= NOTICE BOARD ================= */}
                 <div className="rounded-lg bg-secondary p-3 text-white shadow-sm">
 
